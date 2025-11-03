@@ -318,6 +318,44 @@ class CustomerController
         return JsonResponse::fromJsonString($json);
     }
 
+    #[Route('/api/v1/customer/{id}/payment-method-link', name: 'api_v1_customer_payment_method_link', methods: ['GET'])]
+    public function paymentMethodLink(
+        Request $request,
+        CustomerRepositoryInterface $customerRepository,
+        \BillaBear\Repository\CustomerRegistrationRepositoryInterface $registrationRepository,
+        SerializerInterface $serializer,
+    ) {
+        $this->getLogger()->info('Fetching a customer payment method link', ['customer_id' => (string) $request->get('id')]);
+
+        try {
+            /** @var Customer $customer */
+            $customer = $customerRepository->getById($request->get('id'));
+        } catch (NoEntityFoundException) {
+            $this->getLogger()->info('Unable to find customer for payment method link', ['id' => (string) $request->get('id')]);
+
+            return new JsonResponse(['success' => false], Response::HTTP_NOT_FOUND);
+        }
+
+        $registration = new \BillaBear\Entity\CustomerRegistration();
+        $registration->setName('Payment Method for '.$customer->getBillingEmail());
+        $registration->setSlug(bin2hex(random_bytes(48)));
+        $registration->setPermanent(true);
+        $registration->setValid(true);
+        $registration->setBrandSettings($customer->getBrandSettings());
+        $registration->setCustomer($customer);
+        $registration->setCreatedAt(new \DateTime());
+        $registration->setUpdatedAt(new \DateTime());
+
+        $registrationRepository->save($registration);
+
+        $url = '/portal/register/'.$registration->getSlug();
+
+        $dto = new \BillaBear\Dto\Generic\Api\PaymentMethodLink($registration->getSlug(), $url);
+        $json = $serializer->serialize($dto, 'json');
+
+        return JsonResponse::fromJsonString($json);
+    }
+
     private function getLogger(): LoggerInterface
     {
         return $this->controllerLogger;

@@ -19,4 +19,6 @@ interface BrandSettingsRepositoryInterface extends RepositoryInterface
     public function getAll(): array;
 
     public function getByCode(string $code): BrandSettings;
+
+    public function getDefaultBrandSettings(): BrandSettings;
 }

@@ -29,4 +29,20 @@ class BrandSettingsRepository extends DoctrineRepository implements BrandSetting
 
         return $brandSettings;
     }
+
+    public function getDefaultBrandSettings(): BrandSettings
+    {
+        $brandSettings = $this->entityRepository->findOneBy(['isDefault' => true]);
+
+        if (!$brandSettings instanceof BrandSettings) {
+            // Fallback to the first brand settings if no default is set
+            $allBrandSettings = $this->getAll();
+            if (empty($allBrandSettings)) {
+                throw new NoEntityFoundException("No brand settings found");
+            }
+            $brandSettings = $allBrandSettings[0];
+        }
+
+        return $brandSettings;
+    }
 }

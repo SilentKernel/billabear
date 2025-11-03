@@ -6,6 +6,9 @@ import ChargeBacksList from "../views/App/ChargeBacks/ChargeBacksList.vue";
 import CheckoutList from "../views/App/Checkout/CheckoutList.vue";
 import CheckoutCreate from "../views/App/Checkout/CheckoutCreate.vue";
 import CheckoutView from "../views/App/Checkout/CheckoutView.vue";
+import RegistrationList from "../views/App/Registration/RegistrationList.vue";
+import RegistrationCreate from "../views/App/Registration/RegistrationCreate.vue";
+import RegistrationView from "../views/App/Registration/RegistrationView.vue";
 import CountryList from "../views/App/Country/CountryList.vue";
 import CountryCreate from "../views/App/Country/CountryCreate.vue";
 import CountryView from "../views/App/Country/CountryView.vue";
@@ -60,6 +63,21 @@ export const AppFinanceRoutes  = [
         name: 'app.checkout.view',
         path: 'checkout/view/:id',
         component: CheckoutView
+    },
+    {
+        name: 'app.registration.list',
+        path: 'registration/list',
+        component: RegistrationList
+    },
+    {
+        name: 'app.registration.create',
+        path: 'registration/create',
+        component: RegistrationCreate
+    },
+    {
+        name: 'app.registration.view',
+        path: 'registration/view/:id',
+        component: RegistrationView
     },
     {
         name: 'app.finance.country.list',

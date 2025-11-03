@@ -216,6 +216,12 @@ services:
   app.repository.orm.subscription_creation:
     class: BillaBear\Repository\Orm\SubscriptionCreationRepository
 
+  BillaBear\Repository\CustomerRegistrationRepository:
+    arguments:
+      $entityRepository: '@app.repository.orm.customer_registration'
+  app.repository.orm.customer_registration:
+    class: BillaBear\Repository\Orm\CustomerRegistrationRepository
+
   BillaBear\Repository\Stats\Aggregate\SubscriptionCreationDailyStatsRepository:
     arguments:
       $entityRepository: '@app.repository.orm.subscription_daily_stats'

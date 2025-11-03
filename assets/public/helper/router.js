@@ -4,6 +4,7 @@ import ErrorView from "../views/ErrorView.vue";
 import QuotePayView from "../views/Quote/QuotePayView.vue";
 import CheckoutView from "../views/Checkout/CheckoutView.vue";
 import CustomerManage from "../views/Customer/CustomerManage.vue";
+import CustomerRegistrationView from "../views/Registration/CustomerRegistrationView.vue";
 
 export const router = createRouter({
     history: createWebHistory(),
@@ -27,6 +28,11 @@ export const router = createRouter({
             name: "public.customer.manage",
             path: "/portal/customer/:token",
             component: CustomerManage,
+        },
+        {
+            name: "public.registration",
+            path: "/portal/register/:slug",
+            component: CustomerRegistrationView,
         },
         {
             name: "public.error",
