@@ -35,21 +35,32 @@
 
 <script>
 import StripeTokenForm from "../../../components/app/Billing/Stripe/StripeTokenForm.vue";
-import {mapActions, mapState} from "vuex";
+import { useBillingStore } from "../../../store/billing";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "BillingMethods",
   components: {StripeTokenForm},
+
+  setup() {
+    const billingStore = useBillingStore();
+    const { show_add_card_form, paymentDetails } = storeToRefs(billingStore);
+
+    return {
+      show_add_card_form,
+      paymentDetails,
+      addCard: () => billingStore.addCard(),
+      resetForm: () => billingStore.resetForm(),
+      fetchPaymentMethods: () => billingStore.fetchPaymentMethods(),
+      deleteCard: (payload) => billingStore.deleteCard(payload),
+    };
+  },
+
   data() {
     return {
     }
   },
-  computed: {
-    ...mapState('billingStore', ['show_add_card_form', 'paymentDetails'])
-  },
-  methods: {
-    ...mapActions('billingStore', ['addCard', 'resetForm', 'fetchPaymentMethods', 'deleteCard']),
-  },
+
   mounted() {
     this.resetForm();
     this.fetchPaymentMethods();

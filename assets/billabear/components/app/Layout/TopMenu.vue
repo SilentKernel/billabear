@@ -51,14 +51,21 @@
 
 <script>
 import {Menu, MenuButton, MenuItems, MenuItem} from "@headlessui/vue";
-import {mapState} from "vuex";
+import { useUserStore } from "../../../store/user";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "TopMenu",
   components: {Menu, MenuItems, MenuButton, MenuItem},
-  computed: {
-    ...mapState('userStore', ['user'])
-  }
+
+  setup() {
+    const userStore = useUserStore();
+    const { user } = storeToRefs(userStore);
+
+    return {
+      user,
+    };
+  },
 }
 </script>
 

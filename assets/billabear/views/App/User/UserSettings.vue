@@ -71,10 +71,19 @@
 
 <script>
 import {userservice} from "../../../services/userservice";
-import {mapActions} from "vuex";
+import { useUserStore } from "../../../store/user";
 
 export default {
   name: "UserSettings",
+
+  setup() {
+    const userStore = useUserStore();
+
+    return {
+      updateLocale: (payload) => userStore.updateLocale(payload),
+    };
+  },
+
   data() {
     return {
       loading: false,
@@ -103,7 +112,6 @@ export default {
     )
   },
   methods: {
-    ...mapActions('userStore', ['updateLocale']),
     changePassword: function () {
         let hasErrors = false;
         this.need_current_password = false;

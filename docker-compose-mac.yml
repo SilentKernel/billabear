@@ -1,0 +1,83 @@
+# Docker Compose configuration for Mac local development
+# This file contains only infrastructure services (database, redis, elasticsearch, mail)
+# PHP and Nginx run locally on the host machine
+#
+# Usage:
+#   docker compose -f docker-compose-mac.yml up -d
+#   docker compose -f docker-compose-mac.yml down
+
+services:
+  mail:
+    image: bytemark/smtp
+    restart: always
+    ports:
+      - "1025:25"
+    networks:
+      - billabear
+
+  redis:
+    image: redis:5-alpine
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - "16379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - billabear
+
+  elasticsearch:
+    image: elasticsearch:8.17.1
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: "2g"
+        reservations:
+          memory: "1g"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - "19200:9200"
+      - "19300:9300"
+    networks:
+      - billabear
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  database:
+    image: timescale/timescaledb-ha:pg17
+    restart: always
+    environment:
+      - POSTGRES_DB=${PSQGL_DATABASE_NAME:-billabear_dev}
+      - POSTGRES_USER=${PSQGL_DATABASE_USER:-billabear}
+      - POSTGRES_PASSWORD=${PSQGL_DATABASE_PASSWORD}
+    ports:
+      - "54320:5432"
+    volumes:
+      - postgres-data:/home/postgres/pgdata/data
+      - ./docker/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - billabear
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PSQGL_DATABASE_USER:-billabear}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  billabear:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
+  elasticsearch-data:

@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
+import { useTeamStore } from "../../store/team";
+import { storeToRefs } from "pinia";
 import TeamInvite from "../../components/app/Team/TeamInvite.vue";
 import TeamPendingInvites from "../../components/app/Team/TeamPendingInvites.vue";
 import TeamMembers from "../../components/app/Team/TeamMembers.vue";
@@ -23,14 +24,25 @@ import TeamMembers from "../../components/app/Team/TeamMembers.vue";
 export default {
   name: "TeamSettings",
   components: {TeamMembers, TeamPendingInvites, TeamInvite},
-  computed: {
-    ...mapState('teamStore', ['show_invite_form', 'sent_invites', 'members'])
+
+  setup() {
+    const teamStore = useTeamStore();
+    const { show_invite_form, sent_invites, members } = storeToRefs(teamStore);
+
+    return {
+      show_invite_form,
+      sent_invites,
+      members,
+      showInviteForm: () => teamStore.showInviteForm(),
+      loadTeamInfo: () => teamStore.loadTeamInfo(),
+    };
   },
+
   mounted() {
     this.loadTeamInfo()
   },
+
   methods: {
-    ...mapActions('teamStore', ['showInviteForm', 'loadTeamInfo']),
     displayInviteForm: function () {
       this.showInviteForm()
     }

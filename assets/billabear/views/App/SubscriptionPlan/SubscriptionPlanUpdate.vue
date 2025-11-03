@@ -108,7 +108,8 @@
 
 <script>
 import axios from "axios";
-import {mapActions, mapState} from "vuex";
+import { usePlanStore } from "../../../store/plan";
+import { storeToRefs } from "pinia";
 import SectionLimits from "./Parts/SectionLimits.vue";
 import SectionFeatures from "./Parts/SectionFeatures.vue";
 import SectionPrices from "./Parts/SectionPrices.vue";
@@ -116,6 +117,20 @@ import SectionPrices from "./Parts/SectionPrices.vue";
 export default {
   name: "SubscriptionPlanUpdate",
   components: {SectionPrices, SectionFeatures, SectionLimits},
+
+  setup() {
+    const planStore = usePlanStore();
+    const { selectedFeatures, selectedLimits, selectedPrices } = storeToRefs(planStore);
+
+    return {
+      selectedFeatures,
+      selectedLimits,
+      selectedPrices,
+      fetchSubscriptionPlan: (payload) => planStore.fetchSubscriptionPlan(payload),
+      reset: () => planStore.reset(),
+    };
+  },
+
   data() {
     return {
       subscription_plan: {
@@ -161,11 +176,7 @@ export default {
       this.ready = true;
     })
   },
-  computed: {
-      ...mapState('planStore', ['selectedFeatures', 'selectedLimits', 'selectedPrices'])
-  },
   methods: {
-    ...mapActions('planStore', ['fetchSubscriptionPlan', 'reset']),
     send: function () {
       const productId = this.$route.params.productId
       this.sendingInProgress = true;

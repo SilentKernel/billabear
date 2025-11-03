@@ -83,10 +83,19 @@
 
 <script>
 import axios from "axios";
-import {mapActions} from "vuex";
+import { useOnboardingStore } from "../../../store/onboarding";
 
 export default {
   name: "SubscriptionPlanCreate",
+
+  setup() {
+    const onboardingStore = useOnboardingStore();
+
+    return {
+      subscriptionAdded: () => onboardingStore.subscriptionAdded(),
+    };
+  },
+
   data() {
     return {
       subscription_plan: null,
@@ -158,7 +167,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions('onboardingStore', ['subscriptionAdded']),
     refreshTrial: function () {
         if (this.eligible_currency != null) {
           this.trial = false;

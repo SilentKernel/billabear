@@ -142,12 +142,22 @@
 <script>
 import axios from "axios";
 import {VueFinalModal} from "vue-final-modal";
-import {mapActions} from "vuex";
+import { useOnboardingStore } from "../../../../store/onboarding";
 import CurrencySelect from "../../../../components/app/Forms/CurrencySelect.vue";
 import {Input} from "flowbite-vue";
 
 export default {
   name: "StripeImportList",
+
+  setup() {
+    const onboardingStore = useOnboardingStore();
+
+    return {
+      stripeImport: () => onboardingStore.stripeImport(),
+      stripeKeysAdded: () => onboardingStore.stripeKeysAdded(),
+    };
+  },
+
   components: {Input, CurrencySelect, VueFinalModal},
   data() {
     return {
@@ -182,7 +192,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions('onboardingStore', ['stripeImport', 'stripeKeysAdded', ]),
     registerWebhook: function () {
       this.sendingWebhookRequest = true;
       axios.post('/app/settings/stripe/webhook/register', {url: this.webhook_url}).then(response => {

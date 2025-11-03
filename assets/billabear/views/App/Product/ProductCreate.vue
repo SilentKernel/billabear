@@ -75,11 +75,20 @@
 <script>
 import axios from "axios";
 import {Toggle} from "flowbite-vue";
-import {mapActions} from "vuex";
+import { useOnboardingStore } from "../../../store/onboarding";
 
 export default {
   name: "productCreate",
   components: {Toggle},
+
+  setup() {
+    const onboardingStore = useOnboardingStore();
+
+    return {
+      productAdded: () => onboardingStore.productAdded(),
+    };
+  },
+
   data() {
     return {
       product: {
@@ -108,7 +117,6 @@ export default {
     })
   },
   methods: {
-    ...mapActions('onboardingStore', ['productAdded']),
     send: function () {
       this.sendingInProgress = true;
       this.success = false;

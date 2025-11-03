@@ -199,13 +199,24 @@
 import axios from "axios";
 import currency from "currency.js";
 import WorldMap from "../../components/app/Graphs/WorldMap.vue";
-import {mapState} from "vuex";
+import { useOnboardingStore } from "../../store/onboarding";
+import { storeToRefs } from "pinia";
 import OnboardingMenu from "../../components/app/Onboarding/OnboardingMenu.vue";
 import {TabGroup, Tab, TabList, TabPanel, TabPanels} from "@headlessui/vue";
 
 export default {
   name: "Dashboard",
   components: {Tab, TabPanels, TabPanel, TabList, TabGroup, OnboardingMenu, WorldMap},
+
+  setup() {
+    const onboardingStore = useOnboardingStore();
+    const { show_onboarding } = storeToRefs(onboardingStore);
+
+    return {
+      show_onboarding,
+    };
+  },
+
   data() {
     return {
       ready: false,
@@ -325,9 +336,6 @@ export default {
     })
   },
   computed: {
-    ...mapState('onboardingStore', [
-      'show_onboarding'
-    ]),
     canSeeStats: function(){
       let data;
       try {

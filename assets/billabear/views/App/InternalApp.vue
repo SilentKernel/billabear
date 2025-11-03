@@ -33,7 +33,9 @@
 
 <script>
 import axios from "axios";
-import {mapActions, mapState} from "vuex";
+import { useOnboardingStore } from "../../store/onboarding";
+import { useUserStore } from "../../store/user";
+import { storeToRefs } from "pinia";
 import MenuDesktop from "../../components/app/Layout/MenuDesktop.vue";
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import TopMenu from "../../components/app/Layout/TopMenu.vue";
@@ -50,6 +52,42 @@ export default {
     MenuItems,
     MenuItem
   },
+
+  setup() {
+    const onboardingStore = useOnboardingStore();
+    const userStore = useUserStore();
+
+    const {
+      has_stripe_key,
+      has_stripe_imports,
+      has_subscription_plan,
+      has_customer,
+      has_subscription,
+      has_product,
+      show_onboarding,
+      ready,
+      error
+    } = storeToRefs(onboardingStore);
+
+    const { locale } = storeToRefs(userStore);
+
+    return {
+      has_stripe_key,
+      has_stripe_imports,
+      has_subscription_plan,
+      has_customer,
+      has_subscription,
+      has_product,
+      show_onboarding,
+      ready,
+      error,
+      locale,
+      setStripeImport: (payload) => onboardingStore.setStripeImport(payload),
+      stripeImport: () => onboardingStore.stripeImport(),
+      fetchData: () => onboardingStore.fetchData(),
+    };
+  },
+
   data() {
     return {
       is_update_available: false,
@@ -58,22 +96,7 @@ export default {
       has_api_key: true,
     }
   },
-  computed: {
-    ...mapState('onboardingStore', [
-      'has_stripe_key',
-      'has_stripe_imports',
-      'has_subscription_plan',
-      'has_customer',
-      'has_subscription',
-      'has_product',
-      'show_onboarding',
-      'ready',
-      'error'
-    ]),
-    ...mapState('userStore', [
-      'locale',
-    ])
-  },
+
   methods: {
     dimissStripeImport: function() {
       axios.post('/app/settings/stripe-import/dismiss').then(response => {
@@ -85,8 +108,8 @@ export default {
         this.is_update_available = false;
       })
     },
-    ...mapActions('onboardingStore', ['setStripeImport', 'stripeImport', 'fetchData']),
   },
+
   mounted() {
     this.origin = window.location.hostname;
     this.fetchData().then(response => {

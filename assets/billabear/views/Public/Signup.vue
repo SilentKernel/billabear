@@ -60,11 +60,20 @@
 <script>
 import {userservice} from "../../services/userservice";
 import PublicLogo from "../../components/public/PublicLogo.vue";
-import {mapActions} from "vuex";
+import { useUserStore } from "../../store/user";
 
 export default {
   name: "Signup",
   components: {PublicLogo},
+
+  setup() {
+    const userStore = useUserStore();
+
+    return {
+      markAsLoggedin: (payload) => userStore.markAsLoggedin(payload),
+    };
+  },
+
   data() {
     return {
       email: '',
@@ -82,7 +91,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions('userStore', ['markAsLoggedin']),
     handleSubmit (e) {
       this.submitted = true;
       const { email, password, password_confirm } = this;

@@ -110,7 +110,9 @@
 
 <script>
 import axios from "axios";
-import {mapActions, mapState} from "vuex";
+import { usePlanStore } from "../../../store/plan";
+import { useOnboardingStore } from "../../../store/onboarding";
+import { storeToRefs } from "pinia";
 import SectionFeatures from "./Parts/SectionFeatures.vue";
 import SectionLimits from "./Parts/SectionLimits.vue";
 import SectionPrices from "./Parts/SectionPrices.vue";
@@ -118,6 +120,25 @@ import SectionPrices from "./Parts/SectionPrices.vue";
 export default {
   name: "SubscriptionPlanCreate",
   components: {SectionPrices, SectionLimits, SectionFeatures},
+
+  setup() {
+    const planStore = usePlanStore();
+    const onboardingStore = useOnboardingStore();
+    const { features, prices, loaded, selectedFeatures, selectedLimits, selectedPrices } = storeToRefs(planStore);
+
+    return {
+      features,
+      prices,
+      loaded,
+      selectedFeatures,
+      selectedLimits,
+      selectedPrices,
+      subscriptionPlanAdded: () => onboardingStore.subscriptionPlanAdded(),
+      fetchData: (payload) => planStore.fetchData(payload),
+      reset: () => planStore.reset(),
+    };
+  },
+
   data() {
     return {
       subscription_plan: {
@@ -143,9 +164,6 @@ export default {
       product: {},
     }
   },
-  computed: {
-      ...mapState('planStore', ['features', 'prices', 'loaded', 'selectedFeatures', 'selectedLimits', 'selectedPrices'])
-  },
   mounted() {
     this.reset();
     const productId = this.$route.params.productId
@@ -166,8 +184,6 @@ export default {
     this.id = productId;
   },
   methods: {
-    ...mapActions('onboardingStore', ['subscriptionPlanAdded']),
-    ...mapActions('planStore', ['fetchData', 'reset']),
     send: function () {
       const productId = this.$route.params.productId
       this.sendingInProgress = true;

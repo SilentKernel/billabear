@@ -70,10 +70,27 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { usePlanStore } from "../../../../store/plan";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "SectionFeatures",
+
+  setup() {
+    const planStore = usePlanStore();
+    const { features, errors, selectedFeatures, sendingRequest } = storeToRefs(planStore);
+
+    return {
+      features,
+      errors,
+      selectedFeatures,
+      sendingRequest,
+      addFeatureToSelected: (payload) => planStore.addFeatureToSelected(payload),
+      createFeature: (payload) => planStore.createFeature(payload),
+      removeFeatureFromSelected: (payload) => planStore.removeFeatureFromSelected(payload),
+    };
+  },
+
   data() {
     return {
       next_feature: {},
@@ -82,11 +99,8 @@ export default {
       feature: {},
     }
   },
-  computed: {
-    ...mapState('planStore', ['features', 'errors', 'selectedFeatures', 'sendingRequest'])
-  },
+
   methods: {
-    ...mapActions('planStore', ['addFeatureToSelected', 'createFeature', "removeFeatureFromSelected"]),
     sendCreate: function() {
       this.createFeature({feature: this.feature}).then(response => {
         this.feature = {};

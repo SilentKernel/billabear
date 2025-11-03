@@ -32,16 +32,23 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
+import { useTeamStore } from "../../../store/team";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "TeamPendingInvites",
-  computed: {
-    ...mapState('teamStore', ['sent_invites', 'current_invite' , 'cancel_invite_in_progress'])
+
+  setup() {
+    const teamStore = useTeamStore();
+    const { sent_invites, current_invite, cancel_invite_in_progress } = storeToRefs(teamStore);
+
+    return {
+      sent_invites,
+      current_invite,
+      cancel_invite_in_progress,
+      cancelInvite: (payload) => teamStore.cancelInvite(payload),
+    };
   },
-  methods: {
-    ...mapActions('teamStore', ['cancelInvite'])
-  }
 }
 </script>
 

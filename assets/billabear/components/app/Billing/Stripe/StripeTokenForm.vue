@@ -19,10 +19,19 @@
 <script>
 import {stripeservice} from "../../../../services/stripeservice";
 import {billingservice} from "../../../../services/billingservice";
-import {mapActions} from "vuex";
+import { useBillingStore } from "../../../../store/billing";
 
 export default {
   name: "StripeTokenForm",
+
+  setup() {
+    const billingStore = useBillingStore();
+
+    return {
+      cardAdded: (payload) => billingStore.cardAdded(payload),
+    };
+  },
+
   data() {
     return {
       loading: true,
@@ -71,7 +80,6 @@ export default {
 
   },
   methods: {
-    ...mapActions('billingStore', ['cardAdded']),
     send: function () {
       this.sending = true;
       const that = this

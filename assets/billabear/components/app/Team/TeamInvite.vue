@@ -52,20 +52,33 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
+import { useTeamStore } from "../../../store/team";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "TeamInvite",
+
+  setup() {
+    const teamStore = useTeamStore();
+    const { invite_successfully_processed, invite_sending_in_progress, invite_error } = storeToRefs(teamStore);
+
+    return {
+      invite_successfully_processed,
+      invite_sending_in_progress,
+      invite_error,
+      hideInviteForm: () => teamStore.hideInviteForm(),
+      sendInvite: (payload) => teamStore.sendInvite(payload),
+      sendAnother: () => teamStore.sendAnother(),
+    };
+  },
+
   data() {
       return {
         email: '',
       }
   },
-  computed: {
-    ...mapState('teamStore', ['invite_successfully_processed', 'invite_sending_in_progress', 'invite_successfully_processed', 'invite_error']),
-  },
+
   methods: {
-    ...mapActions('teamStore', ['hideInviteForm', 'sendInvite', 'sendAnother']),
     handleSubmit: function () {
       this.sendInvite({email: this.email})
     },

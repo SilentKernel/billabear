@@ -218,13 +218,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { useOnboardingStore } from '../../../store/onboarding'
 import { useForm } from '../../../composables/useForm'
 import { useApi } from '../../../composables/useApi'
 
 // Router and store
 const router = useRouter()
-const store = useStore()
+const onboardingStore = useOnboardingStore()
 
 // Component state
 const ready = ref(false)
@@ -309,8 +309,8 @@ const send = async () => {
         }
       },
       onSuccess: (response) => {
-        // Call Vuex action
-        store.dispatch('onboardingStore/customerAdded')
+        // Call Pinia action
+        onboardingStore.customerAdded()
         
         // Navigate to customer view
         const id = response.data.id

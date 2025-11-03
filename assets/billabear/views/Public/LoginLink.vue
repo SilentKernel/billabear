@@ -6,21 +6,28 @@
 
 <script>
 import axios from "axios";
-import {mapActions} from "vuex";
+import { useUserStore } from "../../store/user";
 import {router} from "../../helpers/router";
 import ErrorBear from "../../components/app/ErrorBear.vue";
 
 export default {
   name: "LoginLink",
   components: {ErrorBear},
+
+  setup() {
+    const userStore = useUserStore();
+
+    return {
+      markAsLoggedin: (payload) => userStore.markAsLoggedin(payload),
+    };
+  },
+
   data() {
     return {
       ready: false,
     }
   },
-  methods: {
-    ...mapActions('userStore', ['markAsLoggedin']),
-  },
+
   mounted() {
     axios.get("/app/login_check" + window.location.search).then(response => {
       const user = response.data;

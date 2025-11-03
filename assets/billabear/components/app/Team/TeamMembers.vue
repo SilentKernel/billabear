@@ -33,17 +33,27 @@
 </template>
 
 <script>
-import {mapActions, mapState} from 'vuex';
+import { useUserStore } from "../../../store/user";
+import { useTeamStore } from "../../../store/team";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "TeamMembers",
-  computed: {
-    ...mapState('userStore', ['user']),
-    ...mapState('teamStore', ['members', 'current_member', 'disable_member_in_progress'])
+
+  setup() {
+    const userStore = useUserStore();
+    const teamStore = useTeamStore();
+    const { user } = storeToRefs(userStore);
+    const { members, current_member, disable_member_in_progress } = storeToRefs(teamStore);
+
+    return {
+      user,
+      members,
+      current_member,
+      disable_member_in_progress,
+      disableMember: (payload) => teamStore.disableMember(payload),
+    };
   },
-  methods: {
-    ...mapActions('teamStore', ['disableMember'])
-  }
 }
 </script>
 

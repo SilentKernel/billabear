@@ -45,10 +45,25 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { usePlanStore } from "../../../../store/plan";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "SectionLimits",
+
+  setup() {
+    const planStore = usePlanStore();
+    const { sendingRequest, features, selectedLimits } = storeToRefs(planStore);
+
+    return {
+      sendingRequest,
+      features,
+      selectedLimits,
+      removeLimitFromSelected: (payload) => planStore.removeLimitFromSelected(payload),
+      addLimitToSelected: (payload) => planStore.addLimitToSelected(payload),
+    };
+  },
+
   data() {
     return {
       next_limit: {
@@ -56,11 +71,8 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState('planStore', ['sendingRequest', 'features', 'selectedLimits'])
-  },
+
   methods: {
-    ...mapActions('planStore', ['removeLimitFromSelected', 'addLimitToSelected']),
     handleAdd: function() {
       this.addLimitToSelected({limit: this.next_limit})
       this.next_limit = {}

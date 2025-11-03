@@ -136,25 +136,35 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { useOnboardingStore } from "../../../store/onboarding";
+import { storeToRefs } from "pinia";
 
 export default {
   name: "OnboardingMenu",
 
-  computed: {
-    ...mapState('onboardingStore', [
-      'has_stripe_key',
-      'has_stripe_imports',
-      'has_subscription_plan',
-      'has_customer',
-      'has_subscription',
-      'has_product',
-      'show_onboarding'
-    ])
+  setup() {
+    const onboardingStore = useOnboardingStore();
+    const {
+      has_stripe_key,
+      has_stripe_imports,
+      has_subscription_plan,
+      has_customer,
+      has_subscription,
+      has_product,
+      show_onboarding
+    } = storeToRefs(onboardingStore);
+
+    return {
+      has_stripe_key,
+      has_stripe_imports,
+      has_subscription_plan,
+      has_customer,
+      has_subscription,
+      has_product,
+      show_onboarding,
+      dismissStripeImport: () => onboardingStore.dismissStripeImport(),
+    };
   },
-  methods: {
-    ...mapActions('onboardingStore', ['dismissStripeImport'])
-  }
 }
 </script>
 

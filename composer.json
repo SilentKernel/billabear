@@ -41,6 +41,7 @@
         "symfony/intl": "^7.2.0",
         "symfony/mailer": "^7.2.0",
         "symfony/messenger": "^7.2.0",
+        "symfony/redis-messenger": "^7.3.0",
         "symfony/runtime": "^7.2.0",
         "symfony/scheduler": "^7.2.0",
         "symfony/webpack-encore-bundle": "^2.1.1",

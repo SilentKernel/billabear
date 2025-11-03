@@ -34,31 +34,25 @@
   </div>
 </template>
 
-<script>
-import {mapActions, mapState} from 'vuex';
+<script setup>
+import { ref, computed } from 'vue';
+import { useUserStore } from '../../store/user';
 import PublicLogo from "../../components/public/PublicLogo.vue";
 
-export default {
-  name: "Login",
-  components: {PublicLogo},
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  computed: {
-    ...mapState('userStore', ['status', 'error_info', 'in_progress'])
-  },
-  methods: {
-    ...mapActions('userStore', ['login', 'logout']),
-    handleSubmit (e) {
-      const username = this.email;
-      const password = this.password;
-      this.login( {username, password} )
-    }
-  }
-}
+const userStore = useUserStore();
+
+const email = ref('');
+const password = ref('');
+
+const status = computed(() => userStore.status);
+const error_info = computed(() => userStore.error_info);
+const in_progress = computed(() => userStore.in_progress);
+
+const handleSubmit = (e) => {
+  const username = email.value;
+  const passwordValue = password.value;
+  userStore.login({ username, password: passwordValue });
+};
 </script>
 
 <style scoped>

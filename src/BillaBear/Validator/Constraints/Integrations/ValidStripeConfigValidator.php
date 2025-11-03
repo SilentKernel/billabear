@@ -31,11 +31,11 @@ class ValidStripeConfigValidator extends ConstraintValidator
             return;
         }
 
-        if (!$value->getPrivateKey()) {
+        if (!$value->privateKey) {
             return;
         }
 
-        Stripe::setApiKey($value->getPrivateKey());
+        Stripe::setApiKey($value->privateKey);
         try {
             $balance = Balance::retrieve();
             $this->getLogger()->info('Validated a stripe account', ['livemode' => $balance->livemode ? 'live' : 'test']);

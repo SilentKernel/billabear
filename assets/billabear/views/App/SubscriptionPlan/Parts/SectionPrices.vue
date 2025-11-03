@@ -189,7 +189,8 @@
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import { usePlanStore } from "../../../../store/plan";
+import { storeToRefs } from "pinia";
 import CurrencyInput from "../../../../components/app/Forms/CurrencyInput.vue";
 import CurrencySelect from "../../../../components/app/Forms/CurrencySelect.vue";
 import {Toggle} from "flowbite-vue";
@@ -197,6 +198,23 @@ import {Toggle} from "flowbite-vue";
 export default {
   name: "SectionPrices",
   components: {Toggle, CurrencySelect, CurrencyInput},
+
+  setup() {
+    const planStore = usePlanStore();
+    const { selectedPrices, sendingRequest, prices, metrics, errors } = storeToRefs(planStore);
+
+    return {
+      selectedPrices,
+      sendingRequest,
+      prices,
+      metrics,
+      errors,
+      addPriceToSelected: (payload) => planStore.addPriceToSelected(payload),
+      removePriceFromSelected: (payload) => planStore.removePriceFromSelected(payload),
+      createPrice: (payload) => planStore.createPrice(payload),
+    };
+  },
+
   data() {
     return {
       add_type: 'existing',
@@ -221,8 +239,6 @@ export default {
     }
   },
   computed: {
-    ...mapState('planStore', ['selectedPrices', 'sendingRequest', 'prices', 'metrics', 'errors']),
-
     showAmount: function() {
       return !(this.price.type === 'tiered_volume' || this.price.type === 'tiered_graduated')
     },
@@ -266,8 +282,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions('planStore', ['addPriceToSelected', 'removePriceFromSelected', 'createPrice']),
-
     addTier: function() {
       let firstUnit = 1;
       let lastUnit = 2;

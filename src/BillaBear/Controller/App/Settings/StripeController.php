@@ -81,8 +81,8 @@ class StripeController
         }
 
         $settings = $settingsRepository->getDefaultSettings();
-        $settings->getSystemSettings()->setStripePrivateKey($dto->getPrivateKey());
-        $settings->getSystemSettings()->setStripePublicKey($dto->getPublicKey());
+        $settings->getSystemSettings()->setStripePrivateKey($dto->privateKey);
+        $settings->getSystemSettings()->setStripePublicKey($dto->publicKey);
         $settingsRepository->save($settings);
 
         return new JsonResponse([], JsonResponse::HTTP_ACCEPTED);
