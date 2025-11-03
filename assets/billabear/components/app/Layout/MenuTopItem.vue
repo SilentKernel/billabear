@@ -1,6 +1,6 @@
 <template>
   <li class="relative">
-    <div class="p-3 grid grid-cols-4 hover:bg-teal-600 cursor-pointer"  @click="showSubmenu = !showSubmenu">
+    <div class="p-3 grid grid-cols-4 hover:bg-primary-600 cursor-pointer"  @click="showSubmenu = !showSubmenu">
       <div class="col-span-3">
 
         <slot name="default"></slot>
@@ -18,7 +18,7 @@
           leave-from-class="translate-y-0 opacity-100"
           leave-to-class="-translate-y-full opacity-0" v-if="hasSubmenu"
       >
-        <div class="bg-teal-900">
+        <div class="bg-primary-900">
           <ul>
             <slot name="submenu"></slot>
           </ul>

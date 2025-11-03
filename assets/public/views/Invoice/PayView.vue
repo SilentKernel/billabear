@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen flex flex-col lg:flex-row" v-if="ready">
     <!-- Left Section -->
-    <div class="bg-teal-500 w-full lg:w-1/2 h-full block desktop-only  items-center flex justify-center">
-      <img src="/images/public-side-logo.png" width="500" alt="BillaBear" />
+    <div class="bg-primary-500 w-full lg:w-1/2 h-full block desktop-only  items-center flex justify-center">
+      <img src="/images/public-side-logo.png" width="500" alt="Ludovic Frank" />
     </div>
     <div class="p-12 w-1/2">
       <h1 class="text-xl6 mb-5">{{ $t('portal.invoice.pay.title') }}</h1>

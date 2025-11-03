@@ -1,9 +1,9 @@
 .list-btn, .btn--main {
-    @apply rounded-lg p-2 bg-teal-500 text-white font-bold hover:bg-teal-400 no-underline;
+    @apply rounded-lg p-2 bg-primary-500 text-white font-bold hover:bg-primary-400 no-underline;
 }
 
 .btn--secondary {
-    @apply rounded-lg p-2 border bg-white border-teal-500 text-teal-500 font-bold hover:bg-gray-100 cursor-pointer;
+    @apply rounded-lg p-2 border bg-white border-primary-500 text-primary-500 font-bold hover:bg-gray-100 cursor-pointer;
 }
 .btn--danger {
     @apply rounded-lg p-2 border text-white bg-red-500 font-bold hover:bg-red-400;
@@ -17,7 +17,7 @@
 }
 
 .btn--container {
-    @apply mt-2 block text-center rounded-lg w-full bg-teal-500 text-white p-2;
+    @apply mt-2 block text-center rounded-lg w-full bg-primary-500 text-white p-2;
 }
 
 .section-header {
@@ -64,7 +64,7 @@
 }
 
 .form-field-input, .form-field {
-    @apply rounded-lg border border-gray-300 ring-teal-500 p-2;
+    @apply rounded-lg border border-gray-300 ring-primary-500 p-2;
 }
 
 select.form-field-input, select.form-field {
@@ -112,5 +112,5 @@ a {
 }
 
 .chart-button-selected {
-    @apply bg-teal-500 text-white font-medium cursor-not-allowed;
+    @apply bg-primary-500 text-white font-medium cursor-not-allowed;
 }

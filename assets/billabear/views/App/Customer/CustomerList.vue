@@ -33,7 +33,7 @@
                 <td class="py-3">{{ customer.address.company_name }}</td>
                 <td class="py-3">{{ customer.address.country }}</td>
                 <td class="py-3">{{ customer.reference }}</td>
-                <td class="py-3"><router-link :to="{name: 'app.customer.view', params: {id: customer.id}}" class="rounded-lg w-full p-2 bg-teal-500 text-white font-bold">{{ $t('app.customer.list.view_btn') }}</router-link></td>
+                <td class="py-3"><router-link :to="{name: 'app.customer.view', params: {id: customer.id}}" class="rounded-lg w-full p-2 bg-primary-500 text-white font-bold">{{ $t('app.customer.list.view_btn') }}</router-link></td>
               </tr>
               <tr v-if="customers.length === 0">
                 <td colspan="4" class="text-center">{{ $t('app.customer.list.no_customers') }}</td>

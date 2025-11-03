@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen flex flex-col lg:flex-row" v-if="ready">
     <!-- Left Section -->
-    <div class="bg-teal-500 w-full lg:w-1/2 h-full desktop-only text-center text-white pt-12">
-      <img src="/images/app-logo.png" alt="BillaBear" class=" mx-auto" />
+    <div class="bg-primary-500 w-full lg:w-1/2 h-full desktop-only text-center text-white pt-12">
+      <img src="/images/app-logo.png" alt="Ludovic Frank" class=" mx-auto" />
 
       <h1 class="my-3 text-4xl underline">{{ $t('portal.registration.title') }}</h1>
 
@@ -55,7 +55,7 @@
     </div>
   </div>
   <div class="flex justify-center items-center h-screen" v-else>
-    <img src="/images/public-logo.png" class="w-80 animate-fade-in-out" alt="BillaBear" />
+    <img src="/images/public-logo.png" class="w-80 animate-fade-in-out" alt="Ludovic Frank" />
   </div>
 </template>
 

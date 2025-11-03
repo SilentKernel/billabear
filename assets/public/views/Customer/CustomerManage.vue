@@ -2,8 +2,8 @@
   <div class="" v-if="ready">
     <div class="" v-if="!error">
       <div class="mx-auto lg:w-3/4 lg:border-l lg:border-r border-gray-400 h-full min-h-screen">
-        <div class="bg-teal-500 p-5">
-          <img src="/images/app-logo.png" class="" alt="BillaBear" />
+        <div class="bg-primary-500 p-5">
+          <img src="/images/app-logo.png" class="" alt="Ludovic Frank" />
         </div>
         <div class="p-5">
           <h1 class="text-4xl font-bold">{{ $t('portal.customer.manage.title') }}</h1>
@@ -108,7 +108,7 @@
     <div class="flex justify-center items-center h-screen" v-else>
       <div class="text-center">
         <div class="text-center">
-          <img src="/images/public-logo.png" class="w-80 block m-auto" alt="BillaBear" />
+          <img src="/images/public-logo.png" class="w-80 block m-auto" alt="Ludovic Frank" />
         </div>
         <p class="text-2xl font-bold block">
           {{ $t('portal.customer.manage.error_message') }}
@@ -117,7 +117,7 @@
     </div>
   </div>
   <div class="flex justify-center items-center h-screen" v-else>
-    <img src="/images/public-logo.png" class="w-80 animate-fade-in-out" alt="BillaBear" />
+    <img src="/images/public-logo.png" class="w-80 animate-fade-in-out" alt="Ludovic Frank" />
   </div>
   <VueFinalModal v-model="modals.subscription_cancel"
                  class="flex justify-center items-center"

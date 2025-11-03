@@ -1,5 +1,5 @@
 <template>
-  <li class="p-3 hover:bg-teal-800">
+  <li class="p-3 hover:bg-primary-800">
     <slot></slot>
   </li>
 </template>

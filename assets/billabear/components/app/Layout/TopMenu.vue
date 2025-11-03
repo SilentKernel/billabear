@@ -27,7 +27,7 @@
             <router-link :to="{name: 'app.user.settings'}"
 
                          :class="[
-                  active ? 'bg-teal-500 text-white' : 'text-gray-900',
+                  active ? 'bg-primary-500 text-white' : 'text-gray-900',
                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                 ]"
             >{{ $t('app.layout.topbar.menu.settings')}}</router-link>
@@ -36,7 +36,7 @@
           <MenuItem v-slot="{ active }">
             <a  href="/app/logout"
                 :class="[
-                  active ? 'bg-teal-500 text-white' : 'text-gray-900',
+                  active ? 'bg-primary-500 text-white' : 'text-gray-900',
                   'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                 ]"
             >

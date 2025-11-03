@@ -784,13 +784,13 @@ SOFTWARE. #}
     <head>
       <title></title>
     </head>
-    <body style="background: rgb(254,234,0);
-background: radial-gradient(circle, rgba(254,234,0,1) 0%, rgba(246,156,0,1) 100%);; color: black;">
-    
+    <body style="background: rgb(30,46,80);
+background: linear-gradient(135deg, rgba(30,46,80,1) 0%, rgba(58,77,122,1) 100%); color: white;">
+
     <div style="padding-top: 40px;">
-      <div style="margin:auto; background-color: white; max-width: 700px; padding: 50px; border-radius: 15px; margin-top: 40px; ">
-        <h1 style="text-align:center;"><img src="https://ha-static-data.s3.eu-central-1.amazonaws.com/github-readme-logo.png" alt="{{ brand.name  }}" /></h1>
-        
+      <div style="margin:auto; background-color: white; max-width: 700px; padding: 50px; border-radius: 15px; margin-top: 40px; color: black;">
+        <h1 style="text-align:center;"><img src="/images/public-logo.png" alt="{{ brand.name  }}" style="max-width: 300px;" /></h1>
+
         '.$content.'
       </div>
 

@@ -2,13 +2,13 @@
   <LoadingScreen :ready="ready" v-if="!error">
 
     <div class="h-screen w-screen md:flex">
-      <div class="hidden md:block sticky w-72 bg-teal-500 text-white overflow-auto">
+      <div class="hidden md:block sticky w-72 bg-primary-500 text-white overflow-auto">
         <div class="py-12 px-5 text-white">
-          <img src="/images/app-logo.png" alt="BillaBear" class="h-12">
+          <img src="/images/app-logo.png" alt="Ludovic Frank" class="h-12">
         </div>
         <MenuDesktop />
       </div>
-      <div class="md:hidden bg-teal-500 text-white">
+      <div class="md:hidden bg-primary-500 text-white">
         <MobileDesktop />
       </div>
       <div class="md:flex-1 bg-gray-100 p-5 divide-y divide-gray-200 overflow-auto h-screen">

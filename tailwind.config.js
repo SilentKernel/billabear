@@ -24,7 +24,7 @@ module.exports = {
       },
 
       colors: {
-        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
+        primary: { "50": "#f0f2f5", "100": "#e1e5eb", "200": "#c3cbd8", "300": "#a5b1c4", "400": "#8797b1", "500": "#1E2E50", "600": "#1a2845", "700": "#16223b", "800": "#121c30", "900": "#0e1626" }
       },
       fontFamily: {
         'sans': ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
